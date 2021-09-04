@@ -1,0 +1,24 @@
+Server name: ns3.google.com
+IP-address: 216.239.36.10
+Address:1600 Amphitheatre Parkway, Mountain View, CA, 94043, United States
+Phone:+1-650-253-0000
+Email:arin-contact@google.com
+
+Server name: ns2.google.com
+IP-address: 216.239.34.10
+Address:1600 Amphitheatre Parkway, Mountain View, CA, 94043, United States
+Phone:+1-650-253-0000
+Email:arin-contact@google.com
+
+Server name: ns1.google.com
+IP-address: 216.239.32.10
+Address:1600 Amphitheatre Parkway, Mountain View, CA, 94043, United States
+Phone:+1-650-253-0000
+Email:arin-contact@google.com
+
+Server name: ns4.google.com
+IP-address: 216.239.38.10
+Address:1600 Amphitheatre Parkway, Mountain View, CA, 94043, United States
+Phone:+1-650-253-0000
+Email:arin-contact@google.com
+
