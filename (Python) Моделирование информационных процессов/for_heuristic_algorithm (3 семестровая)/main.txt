@@ -1,0 +1,147 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+n = 11
+r = 20
+circle = plt.Circle((0, 0), r, color='black', fill=False)
+plt.subplots()[1].add_artist(circle)
+plt.ylim(ymin=-21, ymax=21)
+plt.xlim(xmin=-28, xmax=28)
+
+x = np.zeros(n)
+y = np.zeros(n)
+a = np.zeros(n)
+
+x[0] = y[0] = a[0] = 0
+
+plt.plot(x[0], y[0], marker='o', color='r')
+plt.annotate(str(0), xy=(x[0], y[0]), size=10)
+print("№" + str(0) + ": \tx=" + str(x[0]) + "\ty=" + str(y[0]) + "\ta=" + str(a[0]))
+
+# Случайно расставить точки внутри круга
+for point in range(1, n):
+	# В полярных координатах
+	angle = np.random.uniform(0, 2*np.pi)
+	radius = np.random.uniform(0, r)
+	# В декартовые координаты
+	x[point] = np.round(radius*np.cos(angle),2)
+	y[point] = np.round(radius*np.sin(angle),2)
+	
+	a[point] = np.round(3*np.abs(np.sin(point)), 3)
+	
+	plt.plot(x[point], y[point], marker='o', color='r')
+	plt.annotate(str(point), xy=(x[point], y[point]), size=10)
+	print("№" + str(point) + ": \tx=" + str(x[point]) + "\ty=" + str(y[point]) + "\ta=" + str(a[point]))
+
+# Алгоритм Краскала
+
+# Matrix весов
+distance = np.zeros(shape=(n, n))
+for i in range(len(distance)):
+	for j in range(len(distance[0])):
+		distance[i][j] = np.round(np.sqrt((x[j] - x[i])**2 + (y[j] - y[i])**2),4)
+print(distance)
+
+# Те, которые уже есть в графе
+graf = np.zeros(n)
+graf[0] = 1
+
+ves_graf = 0
+print("Без ограничений")
+while 0 in graf:
+	i_mem=j_mem=0
+	min_dist = np.max(distance) + 1
+	for i in range(n):
+		# Если первая вершина в графе
+		if graf[i] == 1:
+			# Найти минимальное расстояние
+			for j in range(n):
+				# Если второй вершины нет в графе
+				if graf[j] == 0:
+					# Здесь будет условие на выполнение ограничения
+					# Запоминаем min_dist
+					if distance[i][j] < min_dist:
+						min_dist = distance[i][j]
+						i_mem = i
+						j_mem = j
+	# Проводим линию i_mem-j_mem
+	plt.plot([x[i_mem], x[j_mem]], [y[i_mem], y[j_mem]])
+	# Помечаем, что вершина уже есть в графе
+	graf[j_mem] = 1
+	# К сумме добавляем длину новой дуги
+	ves_graf += distance[i_mem][j_mem]
+	print("Соединение: ", i_mem, " и ", j_mem)
+print("Вес без ограничений: " + str(ves_graf))
+plt.show()
+
+
+# с ограничениями
+d = 7
+
+circle = plt.Circle((0, 0), r, color='black', fill=False)
+plt.subplots()[1].add_artist(circle)
+plt.ylim(ymin=-21, ymax=21)
+plt.xlim(xmin=-28, xmax=28)
+
+plt.plot(x[0], y[0], marker='o', color='r')
+plt.annotate(str(0), xy=(x[0], y[0]), size=10)
+for point in range(1, n):
+	plt.plot(x[point], y[point], marker='o', color='r')
+	plt.annotate(str(point), xy=(x[point], y[point]), size=10)
+
+# Те, которые уже есть в графе
+graf = np.zeros(n)
+graf[0] = 1
+ogranich_esli_y_korny = np.zeros(n)
+
+ves_graf = 0
+pathes_by_root = list()
+for i in range(n):
+	pathes_by_root.append([])
+pathes_by_root[0].append(0)
+print("Ограничение: d = ", d)
+while 0 in graf:
+	i_mem=j_mem=0
+	min_dist = np.max(distance) + 1
+	for i in range(n):
+		# Если первая вершина в графе
+		if graf[i] == 1:
+			# Найти минимальное расстояние
+			for j in range(n):
+				# Если второй вершины нет в графе
+				if graf[j] == 0:
+					new_ogr = a[j]
+					if i != 0:
+						# номер предпоследней
+						n_pp = len(pathes_by_root[i]) - 2
+						# сама предпоследняя
+						sama_pp = pathes_by_root[i][n_pp]
+						# К предпоследней добавляем ограничение
+						new_ogr += ogranich_esli_y_korny[sama_pp]
+					# Условие на выполнение ограничения
+					if new_ogr <= d:
+						# Запоминаем min_dist
+						if distance[i][j] < min_dist:
+							min_dist = distance[i][j]
+							i_mem = i
+							j_mem = j
+	# Проводим линию i_mem-j_mem
+	plt.plot([x[i_mem], x[j_mem]], [y[i_mem], y[j_mem]])
+	# Помечаем, что вершина уже есть в графе
+	graf[j_mem] = 1
+	# К сумме добавляем длину новой дуги
+	ves_graf += distance[i_mem][j_mem]
+	print("Соединение: ", i_mem, " и ", j_mem)
+	# Записываем для новой вершины путь до корня
+	pathes_by_root[j_mem] = [j_mem] + pathes_by_root[i_mem]
+	# номер предпоследней
+	n_pp = len(pathes_by_root[j_mem]) - 2
+	# сама предпоследняя
+	sama_pp = pathes_by_root[j_mem][n_pp]
+	# К предпоследней добавляем ограничение
+	ogranich_esli_y_korny[sama_pp] += a[j_mem]
+
+print("Вес с ограничениями: " + str(ves_graf))
+
+plt.show()
+
