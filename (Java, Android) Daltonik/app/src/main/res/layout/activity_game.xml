@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/llMainGame"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+            <LinearLayout
+                android:id="@+id/GroupIV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_margin="30dp"
+                android:background="@color/ColorGroup">
+
+                <ImageView style="@style/ivStyle" />
+
+                <ImageView style="@style/ivStyle" />
+
+                <ImageView style="@style/ivStyle" />
+
+                <ImageView style="@style/ivStyle" />
+
+                <ImageView style="@style/ivStyle" />
+
+                <ImageView style="@style/ivStyle" />
+
+                <ImageView style="@style/ivStyle" />
+
+                <ImageView style="@style/ivStyle" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:orientation="horizontal"
+                android:layout_margin="15dp"
+                android:background="@color/ColorGroup">
+
+                <SeekBar
+                    android:id="@+id/seekBarGame"
+                    android:layout_weight="4"
+                    style="@style/seekANDhelp" />
+
+                <Button
+                    android:id="@+id/btnHelp"
+                    style="@style/seekANDhelp"
+                    android:layout_weight="4"
+                    android:text="@string/hint"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvHints"
+                    style="@style/seekANDhelp"
+                    android:layout_weight="5"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Daltonik</string>
+    <string name="play">PLAY</string>
+    <string name="right"><![CDATA[->]]></string>
+    <string name="left"><![CDATA[<-]]></string>
+    <string name="hint">HINT</string>
+    <string name="hints">HINT(S)</string>
+    <string name="_5_hints">Watch the video to get 5 hints</string>
+    <string name="exit">Exit</string>
+</resources>
